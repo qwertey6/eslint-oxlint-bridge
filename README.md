@@ -22,6 +22,7 @@ eslint .   # includes oxlint diagnostics
 - **One report** — IDE extensions, CI formatters (`--format json`, `--format sarif`), GitHub Actions annotations, and review tools all see the full picture
 - **One command** — simplifies CI, pre-commit hooks, and developer workflows
 - **Fast type-aware linting** — oxlint computes TypeScript types in Rust, so you can drop ESLint's slow `parserOptions.projectService`
+- **Works with any tool that runs ESLint** — `npx expo lint`, VS Code ESLint extension, lint-staged, etc. all gain oxlint diagnostics for free
 
 ## Install
 
@@ -94,6 +95,31 @@ export default [
   oxlint.configs["flat/recommended"],      // Disable ESLint copies of bridged rules
 ];
 ```
+
+## Use with Expo
+
+[`npx expo lint`](https://docs.expo.dev/guides/using-eslint/) runs ESLint under the hood but has no built-in oxlint support. The bridge gives you oxlint diagnostics through `expo lint` with zero changes to Expo's tooling:
+
+```js
+// eslint.config.js
+const { defineConfig } = require("eslint/config");
+const expoConfig = require("eslint-config-expo/flat");
+const oxlint = require("eslint-plugin-oxlint");
+const oxlintBridge = require("eslint-oxlint-bridge");
+
+module.exports = defineConfig([
+  expoConfig,
+  { ignores: ["dist/*"] },
+  oxlintBridge({ typeAware: true }),
+  oxlint.configs["flat/recommended"],
+]);
+```
+
+```bash
+npx expo lint   # now includes oxlint type-aware diagnostics
+```
+
+This works because `expo lint` delegates to ESLint, which loads the bridge processor from your config. No Expo plugin or patch required.
 
 ## Options
 
