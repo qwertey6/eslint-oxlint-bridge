@@ -15,7 +15,9 @@
   },
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
   ],
   "scripts": {
     "build": "tsc && cp src/index.cjs dist/index.cjs",
@@ -25,8 +27,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/appleh8r/eslint-oxlint-bridge.git"
+    "url": "git+https://github.com/qwertey6/eslint-oxlint-bridge.git"
   },
+  "bugs": {
+    "url": "https://github.com/qwertey6/eslint-oxlint-bridge/issues"
+  },
+  "homepage": "https://github.com/qwertey6/eslint-oxlint-bridge#readme",
   "keywords": [
     "eslint",
     "eslintplugin",
@@ -37,7 +43,7 @@
     "bridge",
     "type-aware"
   ],
-  "author": "",
+  "author": "qwertey6",
   "license": "MIT",
   "engines": {
     "node": ">=18.0.0"
